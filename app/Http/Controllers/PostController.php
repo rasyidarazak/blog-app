@@ -88,7 +88,7 @@ class PostController extends Controller
         $input = $request->all();
 
         if ($thumbnail = $request->file('thumbnail')) {
-            if($post->thumbnail){
+            if($post->thumbnail && file_exists('img/'.$post->thumbnail)){
                 $image = Post::find($post->id);
                 unlink("img/".$image->thumbnail);
             }
@@ -115,7 +115,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if($post->thumbnail){
+        if($post->thumbnail && file_exists('img/'.$post->thumbnail)){
             $image = Post::find($post->id);
             unlink("img/".$image->thumbnail);
         }
