@@ -1,4 +1,4 @@
-@extends('template')
+@extends('layouts.main')
 
 @section('title', 'Edit | '.$post->title)
 

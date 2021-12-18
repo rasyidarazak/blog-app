@@ -1,4 +1,4 @@
-@extends('template')
+@extends('layouts.main')
 
 @section('title', 'All Posts')
 
@@ -24,6 +24,17 @@
 	  		</div>
 	  	</div>
 		@endif
+		
+		<div class="row mb-3">
+			<div class="col-md-4">
+				<form action="/posts">
+					<div class="input-group float-end">
+						<input name="search" type="text" class="form-control" placeholder="Search..." value="{{ request('search') }}" />
+						<button class="btn btn-sm btn-primary" type="submit"><span data-feather="search"></span></button>
+					</div>
+				</form>
+			</div>
+		</div>
 
 		<div class="table-responsive">
 			<table class="table table-bordered table-sm table-hover">
@@ -37,9 +48,9 @@
 			<tbody>
 				@foreach ($posts as $post)
 				<tr>
-					<td class="text-center">{{ ++$i }}</td>
+					<td class="text-center" width="5%">{{ ++$i }}</td>
 					<td>{{ $post->title }}</td>
-					<td class="text-center">
+					<td class="text-center" width="20%">
 						<a class="btn btn-outline-success btn-sm my-1" href="{{ route('posts.show',$post->slug) }}"><span data-feather="eye"></span> View</a>
 						<a class="btn btn-outline-primary btn-sm my-1" href="{{ route('posts.edit',$post->slug) }}"><span data-feather="edit"></span></a>
 						<button type="submit" class="btn btn-outline-danger btn-sm my-1 delete-post delete-post-button" data-bs-toggle="modal" data-bs-target="#deletePostModal-{{ $post->slug }}"><span data-feather="trash-2"></span></button>

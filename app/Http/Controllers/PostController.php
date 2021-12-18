@@ -15,7 +15,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(5);
+        if(request('search')) {
+            $posts = Post::latest()->where('title', 'like', '%'.request('search').'%')->paginate(5);
+        }else{
+            $posts = Post::latest()->paginate(5);
+        }
          
         return view('posts.index',compact('posts'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
