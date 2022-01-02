@@ -1,30 +1,18 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-    <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-            <li class="nav-item">
+<div id="layoutSidenav_nav">
+    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Core</div>
                 <a class="nav-link {{ request()->is('/') ? ' active' : '' }}" href="/">
-                    <span data-feather="home"></span>
+                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->is('posts', 'posts/*') ? ' active' : '' }}" aria-current="page" href="{{ route('posts.index') }}">
-                    <span data-feather="file"></span>
+                <div class="sb-sidenav-menu-heading">Features</div>
+                <a class="nav-link {{ request()->is('posts', 'posts/*') ? ' active' : '' }}" href="{{ route('posts.index') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                     Posts
                 </a>
-            </li>
-        </ul>
-
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Setting</span>
-        </h6>
-        <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span data-feather="tool"></span>
-                    General
-                </a>
-            </li>
-        </ul>
-    </div>
-</nav>
+            </div>
+        </div>
+    </nav>
+</div>

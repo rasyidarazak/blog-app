@@ -3,14 +3,14 @@
 @section('title', 'Create')
 
 @section('content')
-	<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-		<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">Create Post</h1>
-			<div class="btn-toolbar mb-2 mb-md-0">
-				<a class="btn btn-sm btn-outline-secondary mx-2" href="{{ route('posts.index') }}"><span data-feather="arrow-left"></span> Back</a>
-			</div>
-		</div>
-		 
+<main>
+	<div class="container-fluid px-4">
+		<h1 class="mt-4">Create a Post</h1>
+		<ol class="breadcrumb mb-4">
+			<li class="breadcrumb-item"><a href="{{ route('posts.index') }}">Posts</a></li>
+			<li class="breadcrumb-item active">Create</li>
+		</ol>
+
 		<form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
 		    @csrf
 			<div class="row">
@@ -63,5 +63,6 @@
 				</div>
 			</div>
 		</form>
-	</main>
+	</div>
+</main>
 @endsection

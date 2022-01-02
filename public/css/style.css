@@ -1,34 +1,7 @@
-body {
-  font-size: .875rem;
-}
-
-.feather {
-  width: 16px;
-  height: 16px;
-  vertical-align: text-bottom;
-}
-
-.bd-placeholder-img {
-  font-size: 1.125rem;
-  text-anchor: middle;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-@media (min-width: 768px) {
-  .bd-placeholder-img-lg {
-    font-size: 3.5rem;
-  }
-}
-
-.table > tbody > tr > td,
-.table > tbody > tr > th {
-    vertical-align: middle;
-}
-
-.table > tbody > tr > th {
-    text-align: center;
+table > tbody > tr > td,
+table > thead > tr > th {
+  vertical-align: middle!important;
+  text-align: center!important;
 }
 
 table.table td,
@@ -38,4 +11,8 @@ table.table th {
 
 label{
   font-weight: bold;
+}
+
+footer a{
+  text-decoration: none;
 }
