@@ -1,7 +1,9 @@
-<footer class="py-4 bg-light mt-auto">
-    <div class="container-fluid px-4">
-        <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Copyright &copy; Blog App 2021 built with Laravel 8 by <a href="https://github.com/rasyidarazak" target="_blank">Rasyid Arazak</a></div>
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Laravel CMS {{ date('Y') }} by <a href="https://github.com/rasyidarazak" target="_blank">Rasyid Arazak</a>.</span>
         </div>
     </div>
 </footer>
+<!-- End of Footer -->

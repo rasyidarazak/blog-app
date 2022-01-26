@@ -1,18 +1,46 @@
-<div id="layoutSidenav_nav">
-    <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-        <div class="sb-sidenav-menu">
-            <div class="nav">
-                <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link {{ request()->is('/') ? ' active' : '' }}" href="/">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Dashboard
-                </a>
-                <div class="sb-sidenav-menu-heading">Features</div>
-                <a class="nav-link {{ request()->is('posts', 'posts/*') ? ' active' : '' }}" href="{{ route('posts.index') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Posts
-                </a>
-            </div>
-        </div>
-    </nav>
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+
+<!-- Sidebar - Brand -->
+<a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+    <div class="sidebar-brand-icon rotate-n-15">
+        <i class="fas fa-code"></i>
+    </div>
+    <div class="sidebar-brand-text mx-2">Laravel CMS</div>
+</a>
+
+<!-- Divider -->
+<hr class="sidebar-divider my-0">
+
+<!-- Nav Item - Dashboard -->
+<li class="nav-item {{ request()->is('/') ? ' active' : '' }}">
+    <a class="nav-link" href="/">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+</li>
+
+<!-- Divider -->
+<hr class="sidebar-divider">
+
+<!-- Heading -->
+<div class="sidebar-heading">
+    Features
 </div>
+
+<!-- Nav Item - Tables -->
+<li class="nav-item {{ request()->is('posts', 'posts/*') ? ' active' : '' }}">
+    <a class="nav-link" href="{{ route('posts.index') }}">
+        <i class="fas fa-fw fa-table"></i>
+        <span>Posts</span></a>
+</li>
+
+<!-- Divider -->
+<hr class="sidebar-divider d-none d-md-block">
+
+<!-- Sidebar Toggler (Sidebar) -->
+<div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+</div>
+
+</ul>
+<!-- End of Sidebar -->

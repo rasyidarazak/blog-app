@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,10 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->get();
-        return view('posts.index',compact('posts'));
+        return view('posts.index', [
+            'posts' => $posts,
+            'categories' => Category::get(),
+        ]);
     }
 
     /**
@@ -26,7 +35,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('posts.create',[
+            'categories' => Category::get()
+        ]);
     }
 
     /**
@@ -60,7 +71,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show',compact('post'));
+        return view('posts.show', [
+            'post' => $post,
+            'categories' => Category::get()
+        ]);
     }
 
     /**
@@ -71,7 +85,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('posts.edit',compact('post'));
+        return view('posts.edit', [
+            'post' => $post,
+            'categories' => Category::get()
+        ]);
     }
 
     /**
@@ -101,7 +118,7 @@ class PostController extends Controller
 
         $post->update($input);
          
-        return redirect()->route('posts.index')
+        return redirect()->route('posts.show',$post->slug)
             ->with('success','Post updated successfully!');
     }
 

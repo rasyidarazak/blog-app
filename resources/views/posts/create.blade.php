@@ -1,22 +1,19 @@
 @extends('layouts.main')
 
-@section('title', 'Create')
+@section('title', 'Create a Post')
 
 @section('content')
-<main>
-	<div class="container-fluid px-4">
-		<h1 class="mt-4">Create a Post</h1>
-		<ol class="breadcrumb mb-4">
-			<li class="breadcrumb-item"><a href="{{ route('posts.index') }}">Posts</a></li>
-			<li class="breadcrumb-item active">Create</li>
-		</ol>
-
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<h6 class="m-0 font-weight-bold text-primary">Create Form</h6>
+	</div>
+	<div class="card-body">
 		<form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
 		    @csrf
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12">
 				    <div class="form-group mb-3">
-				        <label class="form-label">Title</label>
+				        <label class="form-label">Title*</label>
 				        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Title" value="{{ old('title') }}">
 				        @error('title')
 				        <div class="invalid-feedback">
@@ -27,7 +24,7 @@
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12">
 				    <div class="form-group mb-3">
-				        <label class="form-label">Description</label>
+				        <label class="form-label">Description*</label>
 				        <textarea class="form-control @error('description') is-invalid @enderror" style="height:250px" name="description" placeholder="Description">{{ old('description') }}</textarea>
 				        @error('description')
 				        <div class="invalid-feedback">
@@ -38,9 +35,14 @@
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-6">
 				    <div class="form-group mb-3">
-				        <label class="form-label">Thumbnail</label>
-				        <input type="file" name="thumbnail" class="form-control @error('thumbnail') is-invalid @enderror" placeholder="thumbnail">
-				        @error('thumbnail')
+				        <label class="form-label">Category*</label>
+						<select class="form-control @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
+							<option disabled {{ (old('category_id') ? '':'selected') }}>-- Choose a Category --</option>
+							@foreach($categories as $category) 
+								<option value="{{ $category->id }}" {{ (old('category_id') == $category->id ? 'selected':'') }}>{{ $category->name }}</option>
+							@endforeach
+						</select>
+				        @error('category_id')
 				        <div class="invalid-feedback">
 			            	{{ $message }}
 			          	</div>
@@ -49,7 +51,7 @@
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-6">
 				    <div class="form-group mb-3">
-				        <label class="form-label">Slug</label>
+				        <label class="form-label">Slug*</label>
 				        <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" placeholder="Slug" value="{{ old('slug') }}">
 				        @error('slug')
 				        <div class="invalid-feedback">
@@ -58,11 +60,25 @@
 			          	@enderror
 				    </div>
 				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6">
+				    <div class="form-group mb-3">
+						<label class="form-label">Thumbnail*</label>
+						<div class="custom-file">
+							<input type="file" class="custom-file-input @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail">
+							<label class="custom-file-label" for="thumbnail">Choose file</label>
+							@error('thumbnail')
+							<div class="invalid-feedback">
+								{{ $message }}
+							</div>
+							@enderror
+						</div>
+				    </div>
+				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 text-center mt-2">
 				    <button type="submit" class="btn btn-primary">Submit Post</button>
 				</div>
 			</div>
 		</form>
 	</div>
-</main>
+</div>
 @endsection

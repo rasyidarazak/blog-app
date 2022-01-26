@@ -3,34 +3,47 @@
 @section('title', 'Edit | '.$post->title)
 
 @section('content')
-<main>
-	<div class="container-fluid px-4">
-		<h1 class="mt-4">{{ $post->title }} - Edit</h1>
-		<ol class="breadcrumb mb-4">
-			<li class="breadcrumb-item"><a href="{{ route('posts.index') }}">Posts</a></li>
-			<li class="breadcrumb-item active">Edit</li>
-		</ol>
-
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<h6 class="m-0 font-weight-bold text-primary">Edit Form</h6>
+	</div>
+	<div class="card-body">
 		<form action="{{ route('posts.update',$post->slug) }}" method="POST" enctype="multipart/form-data">
-		    @csrf
-		    @method('PUT')
+			@csrf
+			@method('PUT')
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12">
-				    <div class="form-group mb-3">
-				        <label class="form-label">Title</label>
-				        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Title" value="{{ old('title') ?? $post->title }}">
-				        @error('title')
-				        <div class="invalid-feedback">
-			            	{{ $message }}
-			          	</div>
-			          	@enderror
-				    </div>
+					<div class="form-group mb-3">
+						<label class="form-label">Title*</label>
+						<input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Title" value="{{ old('title') ?? $post->title }}">
+						@error('title')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+						@enderror
+					</div>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="form-group mb-3">
+						<label class="form-label">Description*</label>
+						<textarea class="form-control @error('description') is-invalid @enderror" style="height:250px" name="description" placeholder="Description">{{ old('description') ?? $post->description }}</textarea>
+						@error('description')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+						@enderror
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6">
 				    <div class="form-group mb-3">
-				        <label class="form-label">Description</label>
-				        <textarea class="form-control @error('description') is-invalid @enderror" style="height:250px" name="description" placeholder="Description">{{ old('description') ?? $post->description }}</textarea>
-				        @error('description')
+				        <label class="form-label">Category*</label>
+						<select class="form-control @error('category_id') is-invalid @enderror" id="category_id" name="category_id">
+							<option disabled>-- Choose a Category --</option>
+							@foreach($categories as $category)
+								<option value="{{ $category->id }}" {{ $category->id == $post->category_id ? 'selected' : '' }}>{{ $category->name }}</option>
+							@endforeach
+						</select>
+				        @error('category_id')
 				        <div class="invalid-feedback">
 			            	{{ $message }}
 			          	</div>
@@ -38,41 +51,44 @@
 				    </div>
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-6">
-				    <div class="form-group mb-3">
-				        <label class="form-label">Thumbnail</label>
-				        <div class="row">
-				        	<div class="col-md-12">
-				        		@if($post->thumbnail)
-						        <img src="/img/{{ old('thumbnail') ?? $post->thumbnail }}" alt="{{ old('thumbnail') ?? $post->thumbnail }}" width="400px" class="img-thumbnail mb-2">
-						        @else
-						        <p><em>- No Image -</em></p>
-						        @endif
-						        <input type="file" name="thumbnail" class="form-control @error('thumbnail') is-invalid @enderror" placeholder="thumbnail">
-						        @error('thumbnail')
-						        <div class="invalid-feedback">
-					            	{{ $message }}
-					          	</div>
-					          	@enderror
-				        	</div>
-			            </div>
-				    </div>
+					<div class="form-group mb-3">
+						<label class="form-label">Slug*</label>
+						<input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" placeholder="Slug" value="{{ old('slug') ?? $post->slug }}">
+						@error('slug')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+						@enderror
+					</div>
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-6">
-				    <div class="form-group mb-3">
-				        <label class="form-label">Slug</label>
-				        <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" placeholder="Slug" value="{{ old('slug') ?? $post->slug }}">
-				        @error('slug')
-				        <div class="invalid-feedback">
-			            	{{ $message }}
-			          	</div>
-			          	@enderror
-				    </div>
+					<div class="form-group mb-3">
+						<label class="form-label">Thumbnail</label>
+						<div class="row">
+							<div class="col-md-12">
+								@if($post->thumbnail)
+								<img src="/img/{{ old('thumbnail') ?? $post->thumbnail }}" alt="{{ old('thumbnail') ?? $post->thumbnail }}" width="400px" class="img-thumbnail mb-2">
+								@else
+								<p><em>- No Image -</em></p>
+								@endif
+								<div class="custom-file">
+									<input type="file" class="custom-file-input @error('thumbnail') is-invalid @enderror" id="thumbnail" name="thumbnail">
+									<label class="custom-file-label" for="thumbnail">Choose file</label>
+									@error('thumbnail')
+									<div class="invalid-feedback">
+										{{ $message }}
+									</div>
+									@enderror
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 text-center mt-2">
-				    <button type="submit" class="btn btn-primary">Submit Post</button>
+					<button type="submit" class="btn btn-primary">Submit Post</button>
 				</div>
 			</div>
 		</form>
 	</div>
-</main>
+</div>
 @endsection
