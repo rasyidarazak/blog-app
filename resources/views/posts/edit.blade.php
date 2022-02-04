@@ -15,7 +15,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div class="form-group mb-3">
 						<label class="form-label">Title*</label>
-						<input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Title" value="{{ old('title') ?? $post->title }}">
+						<input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Enter post title.." value="{{ old('title') ?? $post->title }}">
 						@error('title')
 						<div class="invalid-feedback">
 							{{ $message }}
@@ -26,7 +26,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div class="form-group mb-3">
 						<label class="form-label">Description*</label>
-						<textarea class="form-control @error('description') is-invalid @enderror" style="height:250px" name="description" placeholder="Description">{{ old('description') ?? $post->description }}</textarea>
+						<textarea class="form-control @error('description') is-invalid @enderror" style="height:250px" name="description" placeholder="Tell about your post..">{{ old('description') ?? $post->description }}</textarea>
 						@error('description')
 						<div class="invalid-feedback">
 							{{ $message }}
@@ -53,7 +53,7 @@
 				<div class="col-xs-6 col-sm-6 col-md-6">
 					<div class="form-group mb-3">
 						<label class="form-label">Slug*</label>
-						<input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" placeholder="Slug" value="{{ old('slug') ?? $post->slug }}">
+						<input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" placeholder="Create a slug.." value="{{ old('slug') ?? $post->slug }}">
 						@error('slug')
 						<div class="invalid-feedback">
 							{{ $message }}
@@ -67,7 +67,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								@if($post->thumbnail)
-								<img src="/img/{{ old('thumbnail') ?? $post->thumbnail }}" alt="{{ old('thumbnail') ?? $post->thumbnail }}" width="400px" class="img-thumbnail mb-2">
+								<img src="/img/{{ old('thumbnail') ?? $post->thumbnail }}" alt="{{ old('thumbnail') ?? $post->thumbnail }}" width="35%" class="img-thumbnail mb-2">
 								@else
 								<p><em>- No Image -</em></p>
 								@endif

@@ -14,7 +14,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12">
 				    <div class="form-group mb-3">
 				        <label class="form-label">Title*</label>
-				        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Title" value="{{ old('title') }}">
+				        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Enter post title.." value="{{ old('title') }}">
 				        @error('title')
 				        <div class="invalid-feedback">
 			            	{{ $message }}
@@ -25,7 +25,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12">
 				    <div class="form-group mb-3">
 				        <label class="form-label">Description*</label>
-				        <textarea class="form-control @error('description') is-invalid @enderror" style="height:250px" name="description" placeholder="Description">{{ old('description') }}</textarea>
+				        <textarea class="form-control @error('description') is-invalid @enderror" style="height:250px" name="description" placeholder="Tell about your post..">{{ old('description') }}</textarea>
 				        @error('description')
 				        <div class="invalid-feedback">
 			            	{{ $message }}
@@ -51,8 +51,23 @@
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-6">
 				    <div class="form-group mb-3">
+				        <label class="form-label">Tags*</label>
+						<select class="form-control @error('tags') is-invalid @enderror" id="tags" name="tags[]" multiple>
+							@foreach($tags as $tag)
+								<option value="{{ $tag->id }}" {{ (collect(old('tags'))->contains($tag->id)) ? 'selected':'' }}>{{ $tag->name }}</option>
+							@endforeach
+						</select>
+						@error('tags')
+						<div class="invalid-feedback">
+							{{$message}}
+						</div>
+						@enderror
+				    </div>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6">
+				    <div class="form-group mb-3">
 				        <label class="form-label">Slug*</label>
-				        <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" placeholder="Slug" value="{{ old('slug') }}">
+				        <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" placeholder="Create a slug.." value="{{ old('slug') }}">
 				        @error('slug')
 				        <div class="invalid-feedback">
 			            	{{ $message }}

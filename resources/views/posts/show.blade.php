@@ -34,10 +34,18 @@
 						<td class="text-left"><a href="/posts/categories/{{ $post->category->slug }}"><i class="fas fa-sm fa-fw fa-tag"></i> {{ $post->category->name }}</a></td>
 					</tr>
 					<tr>
+						<th class="bg-light">Tags</th>
+						<td class="text-left">
+							@foreach ($post->tags as $tag)
+								<a class="small badge badge-primary" href="/posts/tags/{{ $tag->slug }}">#{{ $tag->name }}</a>
+							@endforeach
+						</td>
+					</tr>
+					<tr>
 						<th class="bg-light">Thumbnail</th>
 						<td class="text-left">
 							@if($post->thumbnail)
-							<img src="/img/{{ $post->thumbnail }}" alt="{{ $post->thumbnail }}" width="400px" class="img-thumbnail">
+							<img src="/img/{{ $post->thumbnail }}" alt="{{ $post->thumbnail }}" width="35%" class="img-thumbnail">
 							@else
 							<em>- No Image -</em>
 							@endif

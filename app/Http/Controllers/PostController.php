@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
@@ -22,10 +23,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->get();
-        return view('posts.index', [
-            'posts' => $posts,
-            'categories' => Category::get(),
-        ]);
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -36,7 +34,8 @@ class PostController extends Controller
     public function create()
     {
         return view('posts.create',[
-            'categories' => Category::get()
+            'categories' => Category::get(),
+            'tags' => Tag::get()
         ]);
     }
 
@@ -57,7 +56,8 @@ class PostController extends Controller
             $input['thumbnail'] = "$profileImage";
         }
 
-        Post::create($input);
+        $post = Post::create($input);
+        $post->tags()->attach(request('tags'));
          
         return redirect()->route('posts.index')
             ->with('success','Post created successfully!');
@@ -71,10 +71,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show', [
-            'post' => $post,
-            'categories' => Category::get()
-        ]);
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -87,7 +84,8 @@ class PostController extends Controller
     {
         return view('posts.edit', [
             'post' => $post,
-            'categories' => Category::get()
+            'categories' => Category::get(),
+            'tags' => Tag::get()
         ]);
     }
 
@@ -117,6 +115,7 @@ class PostController extends Controller
         }
 
         $post->update($input);
+        $post->tags()->sync(request('tag_id'));
          
         return redirect()->route('posts.show',$post->slug)
             ->with('success','Post updated successfully!');
@@ -135,6 +134,7 @@ class PostController extends Controller
             unlink("img/".$image->thumbnail);
         }
 
+        $post->tags()->detach();
         $post->delete();
   
         return redirect()->route('posts.index')

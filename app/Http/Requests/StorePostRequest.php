@@ -28,7 +28,15 @@ class StorePostRequest extends FormRequest
             'description' => 'required|min:3',
             'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'slug' => 'required|min:3|max:255|unique:posts',
-            'category_id' => 'required'
+            'category_id' => 'required',
+            'tags' => 'array|required'
+        ];
+    }
+
+    public function attributes()
+    {
+        return[
+            'category_id' => 'category'
         ];
     }
 }

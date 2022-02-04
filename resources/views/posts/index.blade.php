@@ -3,6 +3,9 @@
 @if(isset($category))
 	@section('title', "Category: $category->name")
 	@section('description', 'Show posts with specific category.')
+@elseif(isset($tag))
+	@section('title', "Tag: $tag->name")
+	@section('description', 'Show posts with specific tag.')
 @else
 	@section('title', 'All Posts')
 	@section('description', 'Manipulation of post data on this page.')
@@ -25,6 +28,8 @@
 	<div class="card-header py-3">
 		@if(isset($category))
 			<h6 class="m-0 font-weight-bold text-primary">Posts Table - <i class="fas fa-sm fa-fw fa-tag"></i> {{ $category->name }} Category</h6>
+		@elseif(isset($tag))
+			<h6 class="m-0 font-weight-bold text-primary">Posts Table - #{{ $tag->name }} Tag</h6>
 		@else
 			<h6 class="m-0 font-weight-bold text-primary">Posts Table</h6>
 		@endif
@@ -37,6 +42,7 @@
 						<th width="5%">No</th>
 						<th>Title</th>
 						<th width="15%">Category</th>
+						<th width="15%">Tags</th>
 						<th width="20%">Action</th>
 					</tr>
 				</thead>
@@ -45,6 +51,7 @@
 						<th>No</th>
 						<th>Title</th>
 						<th>Category</th>
+						<th>Tags</th>
 						<th>Action</th>
 					</tr>
 				</tfoot>
@@ -55,6 +62,11 @@
 							<td>{{ ++$index }}</td>
 							<td>{{ $post->title }}</td>
 							<td><a href="/posts/categories/{{ $post->category->slug }}"><i class="fas fa-sm fa-fw fa-tag"></i> {{ $post->category->name }}</a></td>
+							<td>
+								@foreach ($post->tags as $tag)
+						        	<a class="small badge badge-primary" href="/posts/tags/{{ $tag->slug }}">#{{ $tag->name }}</a>
+						        @endforeach
+							</td>
 							<td>
 								<a class="btn btn-outline-success btn-sm my-1" href="{{ route('posts.show',$post->slug) }}"><i class="fas fa-eye"></i></a>
 								<a class="btn btn-outline-primary btn-sm my-1" href="{{ route('posts.edit',$post->slug) }}"><i class="fas fa-edit"></i></a>
@@ -87,10 +99,6 @@
 							</div>
 						</div>
 					@endforeach
-				@else
-					<tr>
-						<td colspan="4">You haven't posted anything yet</td>
-					</tr>
 				@endif
 				</tbody>
 			</table>
