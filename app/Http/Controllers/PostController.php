@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Tag;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -49,12 +50,13 @@ class PostController extends Controller
     {
         $input = $request->all();
 
-        if ($thumbnail = $request->file('thumbnail')) {
-            $destinationPath = 'img/';
-            $profileImage = date('YmdHis') . "." . $thumbnail->getClientOriginalExtension();
-            $thumbnail->move($destinationPath, $profileImage);
-            $input['thumbnail'] = "$profileImage";
+        if (request()->file('thumbnail')) {
+            $thumbnail = request()->file('thumbnail');
+            $thumbnailUrl = $thumbnail->storeAs("images/posts", time().".{$thumbnail->extension()}");
+        } else{
+            $thumbnailUrl = null;
         }
+        $input['thumbnail'] = "$thumbnailUrl";
 
         $post = Post::create($input);
         $post->tags()->attach(request('tags'));
@@ -129,9 +131,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        if($post->thumbnail && file_exists('img/'.$post->thumbnail)){
-            $image = Post::find($post->id);
-            unlink("img/".$image->thumbnail);
+        if($post->thumbnail && Storage::exists($post->thumbnail)){
+            Storage::delete($post->thumbnail);
         }
 
         $post->tags()->detach();

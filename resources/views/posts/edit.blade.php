@@ -67,7 +67,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								@if($post->thumbnail)
-								<img src="/img/{{ old('thumbnail') ?? $post->thumbnail }}" alt="{{ old('thumbnail') ?? $post->thumbnail }}" width="35%" class="img-thumbnail mb-2">
+								<img src="{{ asset($post->takeImage()) }}" alt="{{ old('thumbnail') ?? $post->thumbnail }}" width="35%" class="img-thumbnail mb-2">
 								@else
 								<p><em>- No Image -</em></p>
 								@endif

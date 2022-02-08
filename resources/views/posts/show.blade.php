@@ -45,7 +45,7 @@
 						<th class="bg-light">Thumbnail</th>
 						<td class="text-left">
 							@if($post->thumbnail)
-							<img src="/img/{{ $post->thumbnail }}" alt="{{ $post->thumbnail }}" width="35%" class="img-thumbnail">
+							<img src="{{ asset($post->takeImage()) }}" alt="{{ $post->thumbnail }}" width="35%" class="img-thumbnail">
 							@else
 							<em>- No Image -</em>
 							@endif
