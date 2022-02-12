@@ -21,6 +21,12 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
+    
+    <!-- Select2 -->
+    @if(request()->is('posts/create', 'posts/*/edit'))
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    @endif
+
     <!-- Custom my styles -->
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     
@@ -57,6 +63,30 @@
 
     <!-- Custom File Input -->
     <script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
+
+    <!-- Select2 -->
+    @if(request()->is('posts/create', 'posts/*/edit'))
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                width: '100%',
+                placeholder: 'Choose some tags'
+            });
+        });
+    </script>
+    @endif
+
+    <!-- CKEditor -->
+    @if(request()->is('posts/create', 'posts/*/edit'))
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script>
+        let desc = document.getElementById("description");
+            CKEDITOR.replace(desc,{
+            language:'en-gb'
+        });
+    </script>
+    @endif
 
     <!-- Custom my script -->
     <script src="{{ asset('js/script.js') }}"></script>

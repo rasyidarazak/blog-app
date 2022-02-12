@@ -27,7 +27,7 @@
 					</tr>
 					<tr>
 						<th class="bg-light">Description</th>
-						<td class="text-left">{{ $post->description }}</td>
+						<td class="text-left">{!! $post->description !!}</td>
 					</tr>
 					<tr>
 						<th class="bg-light">Category</th>

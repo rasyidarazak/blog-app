@@ -25,7 +25,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12">
 				    <div class="form-group mb-3">
 				        <label class="form-label">Description*</label>
-				        <textarea class="form-control @error('description') is-invalid @enderror" style="height:250px" name="description" placeholder="Tell about your post..">{{ old('description') }}</textarea>
+				        <textarea class="form-control @error('description') is-invalid @enderror" style="height:250px" id="description" name="description" placeholder="Tell about your post..">{{ old('description') }}</textarea>
 				        @error('description')
 				        <div class="invalid-feedback">
 			            	{{ $message }}
@@ -52,7 +52,7 @@
 				<div class="col-xs-6 col-sm-6 col-md-6">
 				    <div class="form-group mb-3">
 				        <label class="form-label">Tags*</label>
-						<select class="form-control @error('tags') is-invalid @enderror" id="tags" name="tags[]" multiple>
+						<select class="form-control @error('tags') is-invalid @enderror select2" id="tags" name="tags[]" multiple>
 							@foreach($tags as $tag)
 								<option value="{{ $tag->id }}" {{ (collect(old('tags'))->contains($tag->id)) ? 'selected':'' }}>{{ $tag->name }}</option>
 							@endforeach

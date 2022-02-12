@@ -26,7 +26,7 @@
 				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div class="form-group mb-3">
 						<label class="form-label">Description*</label>
-						<textarea class="form-control @error('description') is-invalid @enderror" style="height:250px" name="description" placeholder="Tell about your post..">{{ old('description') ?? $post->description }}</textarea>
+						<textarea class="form-control @error('description') is-invalid @enderror" style="height:250px" id="description" name="description" placeholder="Tell about your post..">{{ old('description') ?? $post->description }}</textarea>
 						@error('description')
 						<div class="invalid-feedback">
 							{{ $message }}
@@ -51,15 +51,21 @@
 				    </div>
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-6">
-					<div class="form-group mb-3">
-						<label class="form-label">Slug*</label>
-						<input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" placeholder="Create a slug.." value="{{ old('slug') ?? $post->slug }}">
-						@error('slug')
+				    <div class="form-group mb-3">
+				        <label class="form-label">Tags*</label>
+						<select class="form-control @error('tags') is-invalid @enderror select2" id="tags" name="tags[]" multiple>
+						@foreach($tags as $tag)
+							<option value="{{ $tag->id }}"
+								{{ ($post->tags()->pluck('id')->contains($tag->id)) ? 'selected' : '' }}
+							>{{ $tag->name }}</option>
+						@endforeach
+						</select>
+						@error('tags')
 						<div class="invalid-feedback">
-							{{ $message }}
+							{{$message}}
 						</div>
 						@enderror
-					</div>
+				    </div>
 				</div>
 				<div class="col-xs-6 col-sm-6 col-md-6">
 					<div class="form-group mb-3">
@@ -82,6 +88,17 @@
 								</div>
 							</div>
 						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6">
+					<div class="form-group mb-3">
+						<label class="form-label">Slug*</label>
+						<input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror" placeholder="Create a slug.." value="{{ old('slug') ?? $post->slug }}">
+						@error('slug')
+						<div class="invalid-feedback">
+							{{ $message }}
+						</div>
+						@enderror
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-12 text-center mt-2">

@@ -102,22 +102,19 @@ class PostController extends Controller
     { 
         $input = $request->all();
 
-        if ($thumbnail = $request->file('thumbnail')) {
-            if($post->thumbnail && file_exists('img/'.$post->thumbnail)){
-                $image = Post::find($post->id);
-                unlink("img/".$image->thumbnail);
+        if (request()->file('thumbnail')) {
+            if($post->thumbnail && Storage::exists($post->thumbnail)){
+                Storage::delete($post->thumbnail);
             }
-            
-            $destinationPath = 'img/';
-            $profileImage = date('YmdHis') . "." . $thumbnail->getClientOriginalExtension();
-            $thumbnail->move($destinationPath, $profileImage);
-            $input['thumbnail'] = "$profileImage";
-        }else{
-            unset($input['thumbnail']);
+            $thumbnail = request()->file('thumbnail');
+            $thumbnailUrl = $thumbnail->storeAs("images/posts", time().".{$thumbnail->extension()}");
+        } else{
+            $thumbnailUrl = $post->thumbnail;
         }
+        $input['thumbnail'] = "$thumbnailUrl";
 
         $post->update($input);
-        $post->tags()->sync(request('tag_id'));
+        $post->tags()->sync(request('tags'));
          
         return redirect()->route('posts.show',$post->slug)
             ->with('success','Post updated successfully!');
